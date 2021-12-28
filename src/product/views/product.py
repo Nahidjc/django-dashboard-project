@@ -32,6 +32,7 @@ def productsViews(request):
         products = Product.objects.all()
         paginator = Paginator(products, 3)
     page = request.GET.get('page')
+    print("page number: ", page)
     try:
         products = paginator.get_page(page)
 

@@ -89,7 +89,7 @@
               {{ product.title }} <br />
               Created at :{% now "SHORT_DATETIME_FORMAT" %}
             </td>
-            <td style="width: 40%">{{ product.description|slice:":255" }}</td>
+            <td style="width: 40%">{{ product.description|slice:":400" }}</td>
             <td>
               <dl
                 class="row mb-0"
@@ -149,7 +149,7 @@
             <li class="page-item">
               <a
                 class="page-link"
-                href="{% url 'product:list.product' %}?page={{page.previous_number}}"
+                href="{% url 'product:list.product' %}?page={{page.previous_page_number}}"
                 aria-label="Previous"
               >
                 <span aria-hidden="true">&laquo;</span>
@@ -174,7 +174,7 @@
               <a class="page-link" href="#">{{num}}</a>
             </li>
 
-            {% elif num > page.number|add:'-1' and num < page.number|add:'4' %}
+            {% elif num > page.number|add:'-2' and num < page.number|add:'3' %}
             <li class="page-item">
               <a
                 class="page-link"

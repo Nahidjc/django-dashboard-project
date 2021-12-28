@@ -244,7 +244,7 @@ export default {
       console.log(product);
 
       axios
-        .post("/product/create-product/", product)
+        .post("/http://127.0.0.1:8000/product/create/", product)
         .then((response) => {
           console.log(response.data);
         })
