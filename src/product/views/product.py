@@ -17,7 +17,7 @@ def productsViews(request):
         price_to = request.GET.get('price_to')
         print("get url", title, variant, price_from, price_to)
         products = Product.objects.filter(
-            title__icontains=title,
+            Q(title__icontains=title) | Q(title__icontains=" "),
             productvariant__variant_title__icontains=variant,
             productvariantprice__price__range=[price_from, price_to]
 

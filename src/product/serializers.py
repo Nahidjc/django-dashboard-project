@@ -21,13 +21,11 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
-    product = ProductSerializer()
 
     class Meta:
         model = ProductImage
-        exclude = [
-            "id",
-        ]
+        fields = '__all__'
+        lookup_field = 'product'
 
 
 class ProductVariantPriceSerializer(serializers.ModelSerializer):
@@ -38,3 +36,18 @@ class ProductVariantPriceSerializer(serializers.ModelSerializer):
         exclude = [
             "id",
         ]
+
+    def create(self, validated_data):
+        product = validated_data.pop("product")
+        product = Product.create(
+            ProductSerializer(), validated_data=product
+        )
+
+        productprice, created = ProductVariantPrice.objects.update_or_create(
+            product=product,
+
+            price=validated_data.pop("price"),
+            stock=validated_data.pop("stock"),
+
+        )
+        return productprice
